@@ -1,8 +1,15 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAlgorithm } from "../../redux/actions";
 import Button from "../Button";
 import "./index.css";
 
 const Home = () => {
+  const { sortingAlgorithms } = useSelector((state) => state.sort);
+  const dispatch = useDispatch();
+
+  const onClick = (id) => dispatch(setAlgorithm(id));
+
   return (
     <div className="home-container">
       <div className="container">
@@ -21,8 +28,18 @@ const Home = () => {
         </div>
       </div>
       <footer>
-        <Button path="/sort/bubble sort" title="Sort1" />
-        <Button path="/sort/selection" title="Sort2" />
+        {sortingAlgorithms.map((algorithm, index) => {
+          let path = `/sort/${algorithm.name.toLowerCase()}`;
+
+          return (
+            <Button
+              key={algorithm.title}
+              path={path}
+              title={algorithm.name}
+              handleClick={() => onClick(index)}
+            />
+          );
+        })}
       </footer>
     </div>
   );

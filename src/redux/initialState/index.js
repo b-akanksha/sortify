@@ -15,6 +15,8 @@ const initialState = {
   ],
   sortingArray: initArrayForScreenSize(),
   algorithm: 0,
+  progress: "reset",
+  speed: 3,
 };
 
 export default initialState;

@@ -191,6 +191,7 @@ footer {
   margin-bottom: 16px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   animation: top 0.8s forwards;
   animation-delay: 4s;

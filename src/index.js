@@ -11,11 +11,11 @@ import store from "./redux/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ErrorBoundary>
-    <Provider store={store}>
-      <HashRouter>
+    <HashRouter>
+      <Provider store={store}>
         <App />
-      </HashRouter>
-    </Provider>
+      </Provider>
+    </HashRouter>
   </ErrorBoundary>
 );
 
