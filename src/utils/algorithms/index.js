@@ -1,4 +1,5 @@
 export const bubbleSort = (array, setArray, min, i, j, setI, setJ) => {
+  console.log(array);
   let dataArray = [...array];
   const size = array.length;
   let swap = dataArray[j];
