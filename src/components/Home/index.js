@@ -21,7 +21,7 @@ const Home = () => {
         </div>
       </div>
       <footer>
-        <Button path="/sort/bubble" title="Sort1" />
+        <Button path="/sort/bubble sort" title="Sort1" />
         <Button path="/sort/selection" title="Sort2" />
       </footer>
     </div>
