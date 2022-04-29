@@ -5,6 +5,7 @@
   font-family: "Lato";
   color: white;
   font-size: 20px;
+  align-items: baseline;
 }
 
 .nav-text {
@@ -16,4 +17,5 @@
   margin: 0 4px;
   font-weight: 600;
   text-transform: capitalize;
+  font-size: 17px;
 }

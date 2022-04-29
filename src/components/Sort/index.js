@@ -11,6 +11,20 @@ const Sort = () => {
     <div className="sort-div">
       <Breadcrumbs name={id} />
       <Controller />
+      <footer>
+        <p>
+          <i>
+            Made by{" "}
+            <a
+              href="https://www.linkedin.com/in/akanksha-bhat-255b4315a/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Akanksha
+            </a>
+          </i>
+        </p>
+      </footer>
     </div>
   );
 };

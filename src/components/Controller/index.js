@@ -1,113 +1,117 @@
-import { IconButton, Slider, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setProgress, setSortingArray, setSpeed } from "../../redux/actions";
+import { useSelector } from "react-redux";
 import useStyles from "../../styles/useStyles";
-import { convertArrayStringToArray } from "../../utils/helpers/convertArrayStringToArray";
-import { convertInputToArrayString } from "../../utils/helpers/convertInputToArrayString";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
+import SortIcon from "@material-ui/icons/Sort";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 import "./index.css";
+import useTrait from "../../utils/helpers/useTrait";
 
 const Controller = () => {
   const classes = useStyles();
 
-  const { sortingArray, progress, speed } = useSelector((state) => state.sort);
+  const { sortingAlgorithms, algorithm } = useSelector((state) => state.sort);
 
-  const [arrayInput, setArrayInput] = React.useState(sortingArray);
-  const [isPaused, setIsPaused] = React.useState(false);
+  const [arrayInput, setArrayInput] = React.useState([]);
 
-  const dispatch = useDispatch();
+  let sort = sortingAlgorithms[algorithm].title;
+
+  const timeoutRef = React.useRef();
+  const [i, setI] = React.useState(0);
+  const [j, setJ] = React.useState(0);
+  const min = useTrait(0);
 
   React.useEffect(() => {
-    if (progress === "reset") {
-      setIsPaused(false);
+    if (sort && arrayInput?.length) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        sort(arrayInput, setArrayInput, min, i, j, setI, setJ);
+      }, 500);
     }
-  }, [progress]);
+  }, [i, j]);
+
+  const handleChange = (e) => {
+    let str = e.target.value;
+    setArrayInput(str.split(",").map((num) => Number(num)));
+  };
 
   const generate = () => {
     let newArray = Array.from(
       {
-        length: sortingArray.length,
+        length: 10,
       },
-      () => Math.floor(Math.random() * 100)
+      () => Math.floor((Math.random() + 1) * 10)
     );
     setArrayInput(newArray);
-    dispatch(setSortingArray(newArray));
-  };
-
-  const arrayDataChangeHandler = (value) => {
-    const arrayString = convertInputToArrayString(value);
-    setArrayInput(arrayString);
-
-    const array = convertArrayStringToArray(arrayString);
-    dispatch(setSortingArray(array));
+    document.getElementById("input").value = newArray;
   };
 
   const onStart = () => {
-    setIsPaused(false);
-    dispatch(setProgress("start"));
+    document.getElementById("input").value = "";
+    min.set(0);
+    sort(arrayInput, setArrayInput, min, i, j, setI, setJ);
   };
 
-  const onPause = () => {
-    setIsPaused(true);
-    dispatch(setProgress("pause"));
-  };
-
-  const setSpeedValue = (value) => dispatch(setSpeed(value));
-
-  const reset = () => {
-    setIsPaused(false);
-    dispatch(setProgress("reset"));
+  const resetClick = () => {
+    document.getElementById("input").value = "";
+    setArrayInput([]);
+    min.set(0);
+    setJ(0);
+    setI(0);
   };
 
   return (
-    <div className="controller">
-      <div className="array-div">
-        <TextField
-          id="outlined-basic"
-          label="Input"
-          variant="outlined"
-          width="150"
-          onChange={(event) => arrayDataChangeHandler(event.target.value)}
-          value={arrayInput}
-          className={classes.textField}
-          InputProps={{
-            className: classes.input,
-          }}
-          InputLabelProps={{
-            style: { color: "white" },
-          }}
-        />
-        <button onClick={generate} className="sort-button">
-          Generate
-        </button>
+    <div className="graph">
+      <div className="controller">
+        <div className="array-div">
+          <TextField
+            id="input"
+            label="Input"
+            variant="outlined"
+            onChange={handleChange}
+            className={classes.textField}
+            InputProps={{
+              style: { color: "white" },
+            }}
+            InputLabelProps={{
+              style: { color: "white" },
+            }}
+          />
+          <button onClick={generate} className="sort-button">
+            Generate
+          </button>
+        </div>
+        <div className="controls-div">
+          <Button
+            onClick={onStart}
+            className={classes.button}
+            startIcon={<SortIcon className={classes.iconButton} />}
+          >
+            Sort
+          </Button>
+          <Button
+            onClick={resetClick}
+            className={classes.button}
+            startIcon={<RotateLeftIcon className={classes.iconButton} />}
+          >
+            Reset
+          </Button>
+        </div>
       </div>
-      <div className="controls-div">
-        {isPaused ? (
-          <IconButton onClick={onStart} className={classes.button}>
-            <PauseIcon className={classes.iconButton} />
-          </IconButton>
+      <div className="visualizer">
+        {arrayInput.length > 0 ? (
+          arrayInput.map((element, index) => (
+            <div
+              className="bar-graph"
+              key={index}
+              style={{ height: (element + 3) * 10 }}
+            >
+              {element}
+            </div>
+          ))
         ) : (
-          <IconButton onClick={onPause} className={classes.button}>
-            <PlayArrowIcon className={classes.iconButton} />
-          </IconButton>
+          <p>Enter an input array or use the generate button</p>
         )}
-        <Slider
-          className={classes.slider}
-          key={`slider-${speed}`}
-          defaultValue={speed}
-          onChange={(event, value) => setSpeedValue(value)}
-          aria-labelledby="discrete-slider"
-          step={1}
-          marks
-          min={1}
-          max={5}
-        />
-        <IconButton onClick={reset} className={classes.button}>
-          <RotateLeftIcon className={classes.iconButton} />
-        </IconButton>
       </div>
     </div>
   );
