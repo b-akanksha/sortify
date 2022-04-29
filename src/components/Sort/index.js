@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import Breadcrumbs from "../Breadcrumbs";
+import Controller from "../Controller";
 import "./index.css";
 
 const Sort = () => {
@@ -9,7 +10,7 @@ const Sort = () => {
   return (
     <div className="sort-div">
       <Breadcrumbs name={id} />
-      {id}
+      <Controller />
     </div>
   );
 };

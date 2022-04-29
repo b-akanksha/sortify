@@ -15,4 +15,5 @@
 .span-text {
   margin: 0 4px;
   font-weight: 600;
+  text-transform: capitalize;
 }
