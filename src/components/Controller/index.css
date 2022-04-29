@@ -24,3 +24,31 @@
   justify-content: center;
   align-items: center;
 }
+
+.bar-graph {
+  background-color: #e91e63;
+  margin-left: 10px;
+  margin-top: 40px;
+  width: 5rem;
+  vertical-align: bottom;
+  display: inline-block;
+}
+
+.visualizer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.graph {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 90%;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
