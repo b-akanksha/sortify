@@ -28,7 +28,7 @@ const Controller = () => {
         sort(arrayInput, setArrayInput, min, i, j, setI, setJ);
       }, 500);
     }
-  }, [i, j]);
+  }, [i, j, arrayInput, sort, min]);
 
   const handleChange = (e) => {
     let str = e.target.value;
@@ -47,6 +47,7 @@ const Controller = () => {
   };
 
   const onStart = () => {
+    console.log(arrayInput);
     document.getElementById("input").value = "";
     min.set(0);
     sort(arrayInput, setArrayInput, min, i, j, setI, setJ);
@@ -60,13 +61,14 @@ const Controller = () => {
     setI(0);
   };
 
+  const colors = ["#E15554", "#985277", "#922D50"];
   return (
     <div className="graph">
       <div className="controller">
         <div className="array-div">
           <TextField
             id="input"
-            label="Input"
+            placeholder="Input"
             variant="outlined"
             onChange={handleChange}
             className={classes.textField}
@@ -104,7 +106,10 @@ const Controller = () => {
             <div
               className="bar-graph"
               key={index}
-              style={{ height: (element + 3) * 10 }}
+              style={{
+                height: (element + 3) * 10,
+                backgroundColor: colors[index % 3],
+              }}
             >
               {element}
             </div>

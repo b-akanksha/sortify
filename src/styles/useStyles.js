@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     paddingBottom: 0,
     fontWeight: 500,
     "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-      border: `1px solid #ffb510`,
+      border: `1px solid #4D9DE0`,
     },
   },
   input: {

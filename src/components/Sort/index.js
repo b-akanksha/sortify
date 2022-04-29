@@ -9,8 +9,10 @@ const Sort = () => {
 
   return (
     <div className="sort-div">
-      <Breadcrumbs name={id} />
-      <Controller />
+      <div className="main">
+        <Breadcrumbs name={id} />
+        <Controller />
+      </div>
       <footer>
         <p>
           <i>
