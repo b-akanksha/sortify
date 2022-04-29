@@ -1,7 +1,12 @@
 import { IconButton, Slider, TextField } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProgress, setSortingArray, setSpeed } from "../../redux/actions";
+import {
+  reset,
+  setProgress,
+  setSortingArray,
+  setSpeed,
+} from "../../redux/actions";
 import useStyles from "../../styles/useStyles";
 import { convertArrayStringToArray } from "../../utils/helpers/convertArrayStringToArray";
 import { convertInputToArrayString } from "../../utils/helpers/convertInputToArrayString";
@@ -35,14 +40,19 @@ const Controller = () => {
     );
     setArrayInput(newArray);
     dispatch(setSortingArray(newArray));
+    dispatch(reset());
   };
 
   const arrayDataChangeHandler = (value) => {
+    console.log("value", value);
     const arrayString = convertInputToArrayString(value);
+    console.log("arrayString", arrayString);
     setArrayInput(arrayString);
 
     const array = convertArrayStringToArray(arrayString);
+    console.log("array", array);
     dispatch(setSortingArray(array));
+    dispatch(reset());
   };
 
   const onStart = () => {
@@ -57,9 +67,9 @@ const Controller = () => {
 
   const setSpeedValue = (value) => dispatch(setSpeed(value));
 
-  const reset = () => {
+  const resetClick = () => {
     setIsPaused(false);
-    dispatch(setProgress("reset"));
+    dispatch(reset());
   };
 
   return (
@@ -105,7 +115,7 @@ const Controller = () => {
           min={1}
           max={5}
         />
-        <IconButton onClick={reset} className={classes.button}>
+        <IconButton onClick={resetClick} className={classes.button}>
           <RotateLeftIcon className={classes.iconButton} />
         </IconButton>
       </div>

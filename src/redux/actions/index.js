@@ -3,6 +3,7 @@ export const actionTypes = {
   SET_SORTING_ARRAY: "SET_SORTING_ARRAY",
   SET_PROGRESS: "SET_PROGRESS",
   SET_SPEED: "SET_SPEED",
+  RESET: "RESET",
 };
 
 export const setAlgorithm = (payload) => ({
@@ -24,3 +25,5 @@ export const setSpeed = (payload) => ({
   type: actionTypes.SET_SPEED,
   payload,
 });
+
+export const reset = () => ({ type: actionTypes.RESET });

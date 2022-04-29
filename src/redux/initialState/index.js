@@ -17,6 +17,7 @@ const initialState = {
   algorithm: 0,
   progress: "reset",
   speed: 3,
+  doneCount: 0,
 };
 
 export default initialState;
