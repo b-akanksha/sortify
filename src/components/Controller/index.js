@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, TextField } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -28,7 +29,7 @@ const Controller = () => {
         sort(arrayInput, setArrayInput, min, i, j, setI, setJ);
       }, 500);
     }
-  }, [i, j, arrayInput, sort, min]);
+  }, [i, j]);
 
   const handleChange = (e) => {
     let str = e.target.value;
