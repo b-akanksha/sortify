@@ -1,7 +1,18 @@
-export const comparisionColor = "e91e63";
-export const swapColor = "#4D9DE0";
-export const sortedColor = "#00B74A";
-export const pivotColor = "white";
-
-export let swapTime = 1000;
-export let compareTime = 500;
+export const colors = [
+    "#A5C9CA",
+    "#EEB76B",
+    "#726A95",
+    "#719FB0",
+    "#A0C1B8",
+    "#EEB0B0",
+    "#F87474",
+    "#FFB562",
+    "#FFCC8F",
+    "#EEB0B0",
+    "#BDE6F1",
+    "#FFE59D",
+    "#B689C0",
+    "#DFDFDE",
+    "#F68989",
+    "#96CEB4",
+];

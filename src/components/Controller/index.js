@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, TextField } from "@material-ui/core";
 import React from "react";
+import { Button, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import useStyles from "../../styles/useStyles";
 import SortIcon from "@material-ui/icons/Sort";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
-import "./index.css";
+import useStyles from "../../styles/useStyles";
 import useTrait from "../../utils/helpers/useTrait";
+import { colors } from "../../utils/constant";
+import "./index.css";
 
 const Controller = () => {
   const classes = useStyles();
@@ -33,7 +34,10 @@ const Controller = () => {
 
   const handleChange = (e) => {
     let str = e.target.value;
-    setArrayInput(str.split(",").map((num) => Number(num)));
+    const numArray = str.split(",").map((num) => Number(num));
+    const tempArray = str.split(",").map((num, index) => ({ color: colors[index], data: Number(num) }))
+    setArrayInput(tempArray);
+    document.getElementById("input").value = numArray;
   };
 
   const generate = () => {
@@ -43,12 +47,11 @@ const Controller = () => {
       },
       () => Math.floor((Math.random() + 1) * 10)
     );
-    setArrayInput(newArray);
+    setArrayInput(newArray.map((num, index) => ({ color: colors[index], data: Number(num) })));
     document.getElementById("input").value = newArray;
   };
 
   const onStart = () => {
-    console.log(arrayInput);
     document.getElementById("input").value = "";
     min.set(0);
     sort(arrayInput, setArrayInput, min, i, j, setI, setJ);
@@ -62,7 +65,6 @@ const Controller = () => {
     setI(0);
   };
 
-  const colors = ["#E15554", "#985277", "#922D50"];
   return (
     <div className="graph">
       <div className="controller">
@@ -108,11 +110,11 @@ const Controller = () => {
               className="bar-graph"
               key={index}
               style={{
-                height: (element + 3) * 10,
-                backgroundColor: colors[index % 3],
+                height: (element.data + 3) * 10,
+                backgroundColor: element.color,
               }}
             >
-              {element}
+              {element.data}
             </div>
           ))
         ) : (

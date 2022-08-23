@@ -1,5 +1,4 @@
 export const bubbleSort = (array, setArray, min, i, j, setI, setJ) => {
-  console.log(array);
   let dataArray = [...array];
   const size = array.length;
   let swap = dataArray[j];
@@ -10,7 +9,7 @@ export const bubbleSort = (array, setArray, min, i, j, setI, setJ) => {
   }
 
   if (i < size - 1 && j < size - i - 1) {
-    if (swap > dataArray[j + 1]) {
+    if (swap.data > dataArray[j + 1].data) {
       dataArray[j] = dataArray[j + 1];
       dataArray[j + 1] = swap;
       setArray(dataArray);
@@ -24,7 +23,7 @@ export const bubbleSort = (array, setArray, min, i, j, setI, setJ) => {
 export const selectionSort = async (array, setArray, min, i, j, setI, setJ) => {
   let dataArray = [...array];
   let size = array.length;
-  if (dataArray[j] < dataArray[min.get()]) {
+  if (dataArray[j].data < dataArray[min.get()].data) {
     min.set(j);
   }
   if (j === size - 1) {
